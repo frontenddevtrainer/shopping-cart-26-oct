@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  ScrollViewComponent,
+  FlatList,
+} from "react-native";
 
 export default function ProductListing() {
   const [products, setProducts] = useState<null | any[]>(null);
@@ -16,25 +23,29 @@ export default function ProductListing() {
   }, []);
 
   return (
-    <View>
-      {products &&
-        products.map((product, index) => {
-          return (
-            <View style={Styles.productItem}>
-              <View style={Styles.productImage}>
-                <Text>Image</Text>
-              </View>
-              <View style={Styles.productContent}>
-                <Text>{product.title}</Text>
-                <Text>$999</Text>
-              </View>
-              <View style={{ alignSelf: "flex-end" }}>
-                <Button title="Buy now" />
-              </View>
+    <FlatList
+      data={products}
+      
+      ItemSeparatorComponent={() => {
+        return <View style={{ borderWidth: 1, borderColor: "red" }}></View>;
+      }}
+      renderItem={(product: any) => {
+        return (
+          <View style={Styles.productItem}>
+            <View style={Styles.productImage}>
+              <Text>Image</Text>
             </View>
-          );
-        })}
-    </View>
+            <View style={Styles.productContent}>
+              <Text>{product.title}</Text>
+              <Text>$999</Text>
+            </View>
+            <View style={{ alignSelf: "flex-end" }}>
+              <Button title="Buy now" />
+            </View>
+          </View>
+        );
+      }}
+    />
   );
 }
 
