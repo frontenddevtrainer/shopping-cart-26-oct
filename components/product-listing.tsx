@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 
-import { useRouter } from "expo-router";
+import { useRouter, useNavigation } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProductsThunk } from "@/store/slice/product";
@@ -21,6 +21,8 @@ export default function ProductListing() {
   const products = useSelector((state: RootState) => {
     return state.products.listing;
   });
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     // async function fetchProducts() {
@@ -47,6 +49,7 @@ export default function ProductListing() {
             activeOpacity={0.1}
             onPress={() => {
               router.navigate(`/products/${item.userId}`);
+              navigation.setOptions({ title: "Product Details" });
             }}
           >
             <View style={Styles.productItem}>
