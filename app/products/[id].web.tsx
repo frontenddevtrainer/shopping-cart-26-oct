@@ -4,9 +4,8 @@ import {
   Platform,
   Dimensions,
   useWindowDimensions,
-  TouchableOpacity,
 } from "react-native";
-import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect } from "react";
 
 export default function ProductPage() {
@@ -24,16 +23,12 @@ export default function ProductPage() {
     }
   }, []);
 
-  const router = useRouter();
-
   return (
     <View style={{ flexDirection: width < 600 ? "column" : "row" }}>
+      <Text>This is only for web</Text>
       <Text>Product Page</Text>
       <Text>Product Page</Text>
       <Text>Product Page</Text>
-      <TouchableOpacity onPress={()=>{
-        router.navigate(`/`);
-      }}><Text>Back to home.</Text></TouchableOpacity>
     </View>
   );
 }
