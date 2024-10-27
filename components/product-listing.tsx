@@ -11,21 +11,28 @@ import {
 
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { loadProductsThunk } from "@/store/slice/product";
+import { RootState } from "@/store";
 
 export default function ProductListing() {
-  const [products, setProducts] = useState<null | any[]>(null);
-
+  const dispatch = useDispatch();
   const router = useRouter();
+  const products = useSelector((state: RootState) => {
+    return state.products.listing;
+  });
 
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos"
-      );
-      const json = await response.json();
-      setProducts(json);
-    }
-    fetchProducts();
+    // async function fetchProducts() {
+    //   const response = await fetch(
+    //     "https://jsonplaceholder.typicode.com/todos"
+    //   );
+    //   const json = await response.json();
+    //   setProducts(json);
+    // }
+    // fetchProducts();
+
+    dispatch(loadProductsThunk());
   }, []);
 
   return (

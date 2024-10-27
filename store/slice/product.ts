@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const loadProductsThunk = createAsyncThunk(
+const loadProductsThunk: any = createAsyncThunk(
   "products/loadProducts",
   async () => {
     try {
@@ -10,7 +10,7 @@ const loadProductsThunk = createAsyncThunk(
 
       return json;
     } catch (error) {
-      throw new Error("No failed");
+      throw new Error("api failed");
     }
   }
 );
@@ -19,7 +19,7 @@ export const ProductsSlice = createSlice({
   name: "products",
   initialState: {
     loading: false,
-    products: [],
+    listing: [],
   },
 
   // Sync
@@ -34,7 +34,7 @@ export const ProductsSlice = createSlice({
 
     builder.addCase(loadProductsThunk.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.listing = action.payload;
     });
 
     builder.addCase(loadProductsThunk.rejected, (state) => {
@@ -44,5 +44,7 @@ export const ProductsSlice = createSlice({
 });
 
 const { loadProducts } = ProductsSlice.actions;
+const ProductsReducer = ProductsSlice.reducer
 
-export { loadProducts };
+
+export { loadProductsThunk, ProductsReducer };
